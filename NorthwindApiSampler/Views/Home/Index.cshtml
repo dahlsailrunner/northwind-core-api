@@ -1,0 +1,99 @@
+﻿<div class="container py-3">
+    <div class="alert alert-info">
+        <h4 class="alert-heading">Welcome to a Proof-of-Concept for GraphQL and Customer Master Data (Black/Blue Book)!</h4>
+        This web application exposes a GraphQL endpoint and a playground that lets you query (not update, or mutate as it's called in GraphQL) company data from the DEV bluebook
+        database.
+    </div>
+
+
+    <h3>Why GraphQL?</h3>
+    There are lots of reasons that you might want to choose GraphQL, but here's a primary reason extracted straight from their website (linked below):
+    <p class="mb-0" style="padding:5px 20px 30px 40px; font-size: 20px;"><b><i>gives clients the power to ask for exactly what they need and nothing more</i></b></p>
+
+
+    <div class="list-group">
+        <a href="ui/playground" class="list-group-item list-group-item-action list-group-item-success">Check out the UI Playground and explore (check out the "Docs" area for available queries).</a>
+        <a href="https://graphql.org/" class="list-group-item list-group-item-action">Visit the GraphQL website to review information about the spec.</a>
+        <a href="https://tfs.realpage.com/tfs/DefaultCollection/Unity/_git/customer-graphql-poc" class="list-group-item list-group-item-action">Check out the source code for this application in Azure Dev Ops Repos - CI/CD has been enabled via Pipelines.</a>
+    </div>
+
+    <h3 style="padding-top: 15px;">Sample queries to try</h3>
+
+    <div class="row">
+
+        <card>
+            <b>Get a list of company masters</b>
+            <pre>
+{
+  companies {
+    companyId, 
+    companyName
+  }
+}</pre>
+        </card>
+
+        <card>
+            <b>Include the state from the addresses</b>
+            <pre>
+{
+  companies {
+    companyId, 
+    companyName,
+    addresses {
+      state
+    }
+  }
+}</pre>
+        </card>
+
+        <card>
+            <b>Get company instances from the VES source</b>
+            <pre>
+{
+  companyInstances (source: "VES") {
+    companyInstanceSourceId, 
+    companyName,
+    master { 
+      companyId,
+      addresses {
+        state
+      }
+    }
+  }
+}</pre>
+        </card>
+
+        <card>
+            <b>Translation example to get SalesforceIds for a OneSite company</b>
+            <pre>
+{
+  translatedCompanies (sourceCompanyId: "3923591", 
+    knownSource: "OS",
+    tgtSource: "RPISF")
+  {
+    salesforceId: companyInstanceSourceId
+  }
+}</pre>
+        </card>
+
+        <card>
+            <b>More complex translation example to get all translated companies and include master info</b>
+            <pre>
+{
+  translatedCompanies 
+    (sourceCompanyId: "C1304000062", knownSource:"OMS")
+  {
+    sourceId: companyInstanceSourceId,
+    source,
+    master {
+      blackMaster: companyId, 
+      companyName,
+      customerMasters {
+        blueMaster: customerCompanyId
+      }
+    }        
+  }
+}</pre>
+        </card>
+    </div>
+</div>

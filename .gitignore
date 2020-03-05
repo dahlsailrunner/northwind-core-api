@@ -1,0 +1,8 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/NorthwindApiSampler
+/NorthwindApiSampler/bin/Debug/netcoreapp3.0
+/NorthwindApiSampler/obj
+/NorthwindApiSampler/NorthwindApiSampler.csproj.user
