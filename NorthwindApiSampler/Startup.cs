@@ -2,7 +2,6 @@ using GraphQL.Server;
 using GraphQL.Server.Ui.Playground;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
@@ -27,19 +26,17 @@ namespace NorthwindApiSampler
         {
             services.AddControllersWithViews();
 
-            services.Configure<KestrelServerOptions>(options => options.AllowSynchronousIO = true);
-            services.Configure<IISServerOptions>(options => options.AllowSynchronousIO = true);
-
             // Data access
             Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
-            services.AddScoped<IDbConnection, NpgsqlConnection>(p =>
-                new NpgsqlConnection(Configuration.GetConnectionString("NorthwindDatabase")));
+            services.AddScoped<IDbConnection, NpgsqlConnection>(_ => 
+                    new NpgsqlConnection(Configuration.GetConnectionString("NorthwindDatabase")));
             services.AddScoped<INorthwindRepository, NorthwindRepository>();
 
             // GraphQL
             services.AddScoped<NorthwindQuery>();
             services.AddScoped<NorthwindSchema>();
             services.AddGraphQL(o => o.ExposeExceptions = true)
+                .AddSystemTextJson()
                 .AddGraphTypes(ServiceLifetime.Scoped);
 
             // REST
