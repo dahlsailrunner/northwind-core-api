@@ -1,8 +1,8 @@
-using GraphQL;
 using GraphQL.Server;
 using GraphQL.Server.Ui.Playground;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
@@ -27,6 +27,9 @@ namespace NorthwindApiSampler
         {
             services.AddControllersWithViews();
 
+            services.Configure<KestrelServerOptions>(options => options.AllowSynchronousIO = true);
+            services.Configure<IISServerOptions>(options => options.AllowSynchronousIO = true);
+
             // Data access
             Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
             services.AddScoped<IDbConnection, NpgsqlConnection>(p =>
@@ -34,10 +37,8 @@ namespace NorthwindApiSampler
             services.AddScoped<INorthwindRepository, NorthwindRepository>();
 
             // GraphQL
-            services.AddScoped<IDependencyResolver>(s => new FuncDependencyResolver(s.GetRequiredService));
-            //services.AddScoped<NorthwindQuery>();
+            services.AddScoped<NorthwindQuery>();
             services.AddScoped<NorthwindSchema>();
-
             services.AddGraphQL(o => o.ExposeExceptions = true)
                 .AddGraphTypes(ServiceLifetime.Scoped);
 
@@ -46,14 +47,14 @@ namespace NorthwindApiSampler
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
+        {            
+            //GraphQL
+            app.UseGraphQL<NorthwindSchema>();           
+            app.UseGraphQLPlayground(new GraphQLPlaygroundOptions());
+
             // REST
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"));
-
-            //GraphQL
-            app.UseGraphQL<NorthwindSchema>();
-            app.UseGraphQLPlayground(new GraphQLPlaygroundOptions());
 
             app.UseHttpsRedirection();
             app.UseRouting();

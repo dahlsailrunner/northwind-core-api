@@ -1,18 +1,12 @@
-﻿using GraphQL;
-using GraphQL.Types;
+﻿using GraphQL.Types;
 
 namespace NorthwindApiSampler.Graph
 {
     public class NorthwindSchema : Schema
-    {
-        public NorthwindSchema(IDependencyResolver resolver) : base(resolver)
+    {        
+        public NorthwindSchema(NorthwindQuery query)
         {
-            Query = resolver.Resolve<NorthwindQuery>();
+            Query = query;
         }
-
-        //public NorthwindSchema(NorthwindQuery query)
-        //{
-        //    Query = query;
-        //}
     }
 }

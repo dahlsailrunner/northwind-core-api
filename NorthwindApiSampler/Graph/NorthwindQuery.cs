@@ -9,8 +9,10 @@ namespace NorthwindApiSampler.Graph
         public NorthwindQuery(INorthwindRepository repo)
         {
             Field<ListGraphType<CustomerType>>(
-                "customers",
-                resolve: ctx => repo.GetCustomers()
+                name: "customers",
+                description: "Customers that have made orders in the past at some point.",
+                arguments: new QueryArguments(new QueryArgument<IdGraphType> { Name = "customerId" }),
+                resolve: _ => repo.GetCustomers()
             );
         }
     }

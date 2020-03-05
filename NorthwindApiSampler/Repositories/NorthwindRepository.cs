@@ -5,6 +5,7 @@ using NorthwindApiSampler.Repositories.PgHelpers;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace NorthwindApiSampler.Repositories
 {
@@ -16,7 +17,7 @@ namespace NorthwindApiSampler.Repositories
         {
             _db = db;
         }
-        public Customer GetCustomer(string customerId)
+        public Task<Customer> GetCustomer(string customerId)
         {
             var sql = $@"
                 SELECT {CustomerSchema.Columns.Id},
@@ -33,10 +34,10 @@ namespace NorthwindApiSampler.Repositories
                  FROM {CustomerSchema.Table}
                  WHERE {CustomerSchema.Columns.Id} = @customerId";
 
-            return _db.Query<Customer>(sql, new { customerId }).SingleOrDefault();
+            return Task.FromResult(_db.QueryAsync<Customer>(sql, new { customerId }).Result.SingleOrDefault());
         }
 
-        public List<Customer> GetCustomers()
+        public Task<List<Customer>> GetCustomers()
         {
             var sql = $@"
                 SELECT 
@@ -54,7 +55,7 @@ namespace NorthwindApiSampler.Repositories
                  FROM {CustomerSchema.Table} 
                  LIMIT 1000";
 
-            return _db.Query<Customer>(sql).ToList();
+            return Task.FromResult(_db.QueryAsync<Customer>(sql).Result.ToList());
         }
     }
 }

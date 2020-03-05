@@ -2,6 +2,7 @@
 using NorthwindApiSampler.DataModels;
 using NorthwindApiSampler.Interfaces;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace NorthwindApiSampler.Controllers
 {
@@ -17,9 +18,9 @@ namespace NorthwindApiSampler.Controllers
         }
 
         [HttpGet]
-        public List<Customer> GetCustomers()
+        public async Task<List<Customer>> GetCustomers()
         {
-            return _repo.GetCustomers();
+            return await _repo.GetCustomers();
         }
     }
 }
