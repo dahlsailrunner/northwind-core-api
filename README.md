@@ -34,3 +34,7 @@ Clone the repo and build it, then run.
 
 It should open a browser to the Home page, with links across the top for the Swagger interface and the GraphQL playground.
 
+## Notes on the API
+### Data access
+Uses Dapper, plus some very helpful information posted by Andrew Lock:
+https://andrewlock.net/using-snake-case-column-names-with-dapper-and-postgresql/
