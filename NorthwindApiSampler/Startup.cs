@@ -10,6 +10,10 @@ using NorthwindApiSampler.Interfaces;
 using NorthwindApiSampler.Repositories;
 using Npgsql;
 using System.Data;
+using System.IO;
+using Microsoft.AspNetCore.StaticFiles;
+using Microsoft.Extensions.FileProviders;
+using NorthwindApiSampler.Services;
 
 namespace NorthwindApiSampler
 {
@@ -41,6 +45,9 @@ namespace NorthwindApiSampler
 
             // REST
             services.AddSwaggerGen(c => c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" }));
+
+            // gRPC
+            services.AddGrpc(o => o.EnableDetailedErrors = true);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -55,9 +62,20 @@ namespace NorthwindApiSampler
 
             app.UseHttpsRedirection();
             app.UseRouting();
+
+            var provider = new FileExtensionContentTypeProvider();
+            provider.Mappings[".proto"] = "text/plain";
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Protos")),
+                RequestPath = "/protos",
+                ContentTypeProvider = provider
+            });
+
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapGrpcService<CustService>();
                 endpoints.MapControllers();
                 endpoints.MapControllerRoute(
                     name: "default",

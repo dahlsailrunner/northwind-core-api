@@ -6,31 +6,64 @@
     </div>
 
     <div class="row">
-        <div class="col md-4">
-            <h5>REST / JSON</h5>
-            <ul>
-                <li>Well-known and simple for consumers</li>
-                <li>Easy to troubleshoot and test</li>
-                <li>Make it do whatever you want</li>
-            </ul>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">REST / JSON</h4>
+                    <ul>
+                        <li>Well-known and simple for consumers</li>
+                        <li>Easy to troubleshoot and test</li>
+                        <li>Make it do whatever you want</li>
+                    </ul>
+                    <h6>Key use cases</h6>
+                    <ul>
+                        <li>JavaScript / TypeScript clients</li>
+                        <li>Web applications</li>
+                    </ul>
+                </div>
+            </div>
         </div>
-        <div class="col md-4">
-            <h5>GraphQL</h5>
-            <ul>
-                <li>Give consumers what they need/want and nothing more</li>
-                <li>Can alias fields to your liking/shape</li>
-                <li>In-the box support for separation of reads and writes, as well as subscription support for changes</li>
-            </ul>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">GraphQL</h4>
+                    <ul>
+                        <li>Give consumers what they need/want and nothing more</li>
+                        <li>Can alias fields to your liking/shape</li>
+                        <li>In-the box support for separation of reads and writes, as well as subscription support for changes</li>
+                    </ul>
+                    <h6>Key use cases</h6>
+                    <ul>
+                        <li>Open, dynamic querying of larger datasets</li>
+                        <li>JavaScript / TypeScript clients</li>
+                        <li>Web applications</li>
+                    </ul>
+                </div>
+            </div>
         </div>
-        <div class="col md-4">
-            <h5>gRPC</h5>
-            <ul>
-                <li>Very efficient on wire</li>
-                <li>Based on strict contract</li>
-            </ul>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">gRPC</h4>
+                    <ul>
+                        <li>Very efficient on wire</li>
+                        <li>Based on strict contract</li>
+                        <li>Secure by default</li>
+                        <li>Uni- and bi-directional streaming</li>
+                    </ul>
+                    <h6>Key use cases</h6>
+                    <ul>
+                        <li>Service-to-service calls (BFF to back end, API gateways)</li>
+                        <li>IoT devices</li>
+                        <li>Inside microservices</li>
+                        <li>Native mobile apps</li>
+                        <li>Partner-to-partner (B2B) communication</li>
+                    </ul>
+                    <div class="alert alert-warning">Note!  Requires HTTP/2 TLS/SSL.  Will not run in IIS or IIS Express.</div>
+                </div>
+            </div>
         </div>
     </div>
-    
     <h3 style="padding-top: 15px;">Sample GraphQL queries to try</h3>
 
     <div class="row">
@@ -49,7 +82,5 @@
 </pre>
             </div>
         </card>
-
-
     </div>
 </div>
