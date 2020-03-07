@@ -45,23 +45,23 @@ Here's a screenshot of the home page you should see:
 Uses Dapper, plus some very helpful information posted by Andrew Lock:
 https://andrewlock.net/using-snake-case-column-names-with-dapper-and-postgresql/
 
-### DataModels
+### DataModels folder
 This folder contains simple POCOs that represent the objects that are in the Northwind database.
 Note the C# style naming of these; the Postgres database has different names and the logic for 
 making the translactions is all in the Repositories folder and the Dapper line in Startup.cs that adds 
 the underscore-handling.
 
-### Graph
+### Graph folder
 This folder has the majority of the GraphQL-specific files / classes. 
 
-### Protos
+### Protos folder
 This folder has gRPC protobuf files that are also exposed as static files when 
 the website is running to enable referencing them for new clients.
 
-### Services
+### Services folder
 This folder has the implementation of the gRPC services.
 
-### Clients
+### Clients 
 There are two console apps in the solution that can be run as long as the Api is running.  They 
 are GraphQL and gRPC clients that call the endpoints.
 
