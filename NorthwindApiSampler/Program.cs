@@ -22,7 +22,8 @@ namespace NorthwindApiSampler
                 .WriteTo.Logger(lc => lc
                     .Filter.ByIncludingOnly(Matching.WithProperty("length"))                    
                     .WriteTo.Console()
-                    .WriteTo.File(new RenderedCompactJsonFormatter(), "C:/temp/logs/northwindlogs/log.txt"))
+                    .WriteTo.File(new RenderedCompactJsonFormatter(), "C:/temp/logs/northwindlogs/log.txt")
+                )
                 .CreateLogger();
 
             try

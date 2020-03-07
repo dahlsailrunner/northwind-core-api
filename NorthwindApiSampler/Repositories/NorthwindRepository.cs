@@ -52,8 +52,7 @@ namespace NorthwindApiSampler.Repositories
                        {CustomerSchema.Columns.Country},
                        {CustomerSchema.Columns.Phone},
                        {CustomerSchema.Columns.Fax}
-                 FROM {CustomerSchema.Table} 
-                 LIMIT 1000";
+                 FROM {CustomerSchema.Table}";
 
             return Task.FromResult(_db.QueryAsync<Customer>(sql).Result.ToList());
         }
