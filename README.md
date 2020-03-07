@@ -82,4 +82,4 @@ The gRPC service has been defined to only include the three desired fields and t
 
 All three requests return data for 91 customers.
 
-<img src="payloads.png" />
+<img src="Payloads.png" />
