@@ -10,3 +10,5 @@
 /NorthwindGrpcClient/bin/Debug/netcoreapp3.1
 /NorthwindGrpcClient/obj
 /.vs
+/NorthwindGraphQLClient/bin/Debug/netcoreapp3.1
+/NorthwindGraphQLClient/obj
