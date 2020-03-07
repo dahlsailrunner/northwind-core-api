@@ -14,6 +14,7 @@ using System.IO;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.FileProviders;
 using NorthwindApiSampler.Services;
+using Serilog;
 
 namespace NorthwindApiSampler
 {
@@ -51,7 +52,14 @@ namespace NorthwindApiSampler
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {            
+        {
+            //app.UseSerilogRequestLogging(options =>
+            //{
+            //    options.EnrichDiagnosticContext = (diagnosticContext, httpContext) =>
+            //    {
+            //        diagnosticContext.Set("ResponseLength", httpContext.Response.ContentLength);
+            //    };
+            //});
             //GraphQL
             app.UseGraphQL<NorthwindSchema>();           
             app.UseGraphQLPlayground(new GraphQLPlaygroundOptions());
@@ -81,6 +89,7 @@ namespace NorthwindApiSampler
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+            
         }
     }
 }

@@ -7,3 +7,6 @@
 /NorthwindApiSampler/obj
 /NorthwindApiSampler/NorthwindApiSampler.csproj.user
 /NorthwindApiSampler/bin/Debug/netcoreapp3.1
+/NorthwindGrpcClient/bin/Debug/netcoreapp3.1
+/NorthwindGrpcClient/obj
+/.vs

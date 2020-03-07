@@ -1,20 +1,28 @@
 using System;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Serilog;
+using Serilog.Filters;
+using Serilog.Formatting.Compact;
 
 namespace NorthwindApiSampler
 {
-    public class Program
+    public static class Program
     {
         public static int Main(string[] args)
         {
+            var configuration = new ConfigurationBuilder()
+            .AddJsonFile("appsettings.json")
+            .Build();
+
             Log.Logger = new LoggerConfiguration()
-                //.MinimumLevel.Debug()
-                //.MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+                .ReadFrom.Configuration(configuration)
                 .Enrich.FromLogContext()
-                //.WriteTo.Console(new RenderedCompactJsonFormatter())
-                .WriteTo.Console()
+                .WriteTo.Logger(lc => lc
+                    .Filter.ByIncludingOnly(Matching.WithProperty("length"))                    
+                    .WriteTo.Console()
+                    .WriteTo.File(new RenderedCompactJsonFormatter(), "C:/temp/logs/northwindlogs/log.txt"))
                 .CreateLogger();
 
             try
