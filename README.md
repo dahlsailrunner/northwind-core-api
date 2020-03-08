@@ -54,12 +54,10 @@ the underscore-handling.
 ### Graph folder
 This folder has the majority of the GraphQL-specific files / classes. 
 
-### Protos folder
-This folder has gRPC protobuf files that are also exposed as static files when 
+### Protos and Services folders
+The `Protos` folder has gRPC protobuf files that are also exposed as static files when 
 the website is running to enable referencing them for new clients.
-
-### Services folder
-This folder has the implementation of the gRPC services.
+The `Services` folder has the implementation of the gRPC services.
 
 ### Clients 
 There are two console apps in the solution that can be run as long as the Api is running.  They 
