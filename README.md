@@ -13,18 +13,11 @@ This project references a localhost instance of Postgres containing the Northwin
 If you have Docker desktop installed, the repo below has some instructions on getting the database set up.
 https://github.com/dahlsailrunner/northwind_psql
 
-**Windows**
 ```
-docker volume create --name northwind-pg-data -d local
 docker-compose -f .\docker-compose-windows.yml up
 ```
 
-**Mac**
-
-You'll need to have a Docker compose file that exposes port 5432 like the windows one does.
-If you want to simply use the Windows one, the above commands should work.  If you don't want
-to create the external volume, then modify the existing `docker-compose.yml` file 
-and add the section for `ports` like the Windows file does.  
+**N O T E :** You'll need to have a Docker compose file that exposes port 5432 like the one above does. Using that compose file should work fine. If you don't want to create the external volume, then modify the existing `docker-compose.yml` file and add the section for `ports` like the file above does.  
 
 Then simply run:
 ```
